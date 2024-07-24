@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import {socket} from '../socket';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
+import {utcToLocal} from '../lib/utcToLocal';
 
 interface Message {
   id: number | string;
@@ -182,7 +183,7 @@ const Chat = ({ chatSessionId }: { chatSessionId: number }) => {
             </Avatar>
             <div className={styles.messsageContent}>
               <div className={styles.messageText}>{msg.message}</div>
-              <div className={styles.messageTime}>{new Date(msg.created_at).toLocaleTimeString()}</div>
+              <div className={styles.messageTime}>{utcToLocal(msg.created_at)}</div>
             </div>
           </div>
         )) : null}
