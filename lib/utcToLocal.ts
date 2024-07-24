@@ -1,6 +1,6 @@
 export function utcToLocal(utcTimestamp: Date): string {
     // Create a Date object from the UTC timestamp with ' UTC' appended
-  const date = new Date(utcTimestamp + ' UTC');
+  const date = new Date(new Date(utcTimestamp) + ' UTC');
 
   // Check if the date is valid
   if (!(date instanceof Date)) {
@@ -9,11 +9,11 @@ export function utcToLocal(utcTimestamp: Date): string {
 
   const localTimeStamp = new Date(date.toString());
   // Extract components of the local date and time
-//   const localDateString = localTimeStamp.toLocaleDateString();
+  //   const localDateString = localTimeStamp.toLocaleDateString();
   const localTimeString = localTimeStamp.toLocaleTimeString();
 
   // Combine the date and time components into a single string
-//   const localDateTimeString = `${localDateString} ${localTimeString}`;
+  //   const localDateTimeString = `${localDateString} ${localTimeString}`;
 
   return localTimeString;
 }
