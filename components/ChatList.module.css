@@ -1,0 +1,33 @@
+.chatListContainer {
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+}
+  
+.actions{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid hsl(0, 0%, 93%);
+}
+
+.chatSession {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+}
+
+.chatSession:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.chatSession.selected {
+  background-color: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+}
+
+.participants {
+  font-weight: bold;
+  margin-right: 5px;
+}

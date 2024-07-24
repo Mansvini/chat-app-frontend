@@ -1,0 +1,76 @@
+/* components/Chat.module.css */
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* .users {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+} */
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message{
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  max-width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.myMessage {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.theirMessage {
+  align-self: flex-start;
+}
+
+.messageContent {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.messageText {
+  margin-bottom: 5px;
+}
+
+.messageTime {
+  font-size: 0.75rem;
+  color: #888;
+  text-align: right;
+}
+
+.inputContainer {
+  display: flex;
+  padding: 10px;
+}
+
+.inputContainer textarea {
+  margin-right: 10px;
+}
+
+/* @media (max-width: 768px) {
+  .chatContainer {
+    height: 80vh;
+  }
+} */

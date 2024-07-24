@@ -1,0 +1,9 @@
+/* components/WaitingRoom.module.css */
+.container {
+    text-align: center;
+}
+  
+.leaveButton {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+}

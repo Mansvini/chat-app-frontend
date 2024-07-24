@@ -1,0 +1,54 @@
+/* components/ui/Navbar.module.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 10vh;
+}
+  
+.logo {
+    font-size: 1.5rem;
+}
+
+.navLinks {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navLinks li {
+    margin: 0 1rem;
+}
+
+.navLinks a {
+    /* color: white; */
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.navLinks a:hover {
+    text-decoration: underline;
+}
+
+.active a {
+    font-weight: bold;
+}
+
+.modeToggle {
+    display: flex;
+    align-items: center;
+}
+
+.modeToggle button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modeToggle button:focus {
+    outline: none;
+}
