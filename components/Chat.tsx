@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import {socket} from '../socket';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import {utcToLocal} from '../lib/utcToLocal';
 
 interface Message {
   id: number | string;
@@ -40,6 +39,27 @@ const Chat = ({ chatSessionId }: { chatSessionId: number }) => {
   },[messages, typingUsers]);
 
   useEffect(()=>{
+
+    const fetchChatUsers = async (id: number) => {
+      if(userId){
+        const res = await fetch(`/api/chat/users?id=${id}`);
+        if(res.ok){
+          const { userMap } = await res.json();
+          if(!Object.keys(userMap).includes(userId.toString())){
+            router.push('/error');
+          }else{
+            setUsers(userMap);
+          }
+        }
+      }
+    };
+
+    const fetchMessages = async () => {
+      const res = await fetch(`/api/chat/messages?chatSessionId=${chatSessionId}`);
+      const data = await res.json();
+      setMessages(data);
+      setLoading(false);
+    };
 
     if (chatSessionId) {
       fetchChatUsers(chatSessionId);
@@ -84,32 +104,11 @@ const Chat = ({ chatSessionId }: { chatSessionId: number }) => {
       socket.off('userStoppedTyping', handleUserStoppedTyping);
     };
 
-  }, [chatSessionId])
+  }, [chatSessionId, router, userId])
 
   useEffect(()=>{
     setRecepientId(Number(Object.keys(users).find(id => (Number(id) !== userId))));
-  }, [users])
-
-  const fetchMessages = async () => {
-    const res = await fetch(`/api/chat/messages?chatSessionId=${chatSessionId}`);
-    const data = await res.json();
-    setMessages(data);
-    setLoading(false);
-  };
-
-  const fetchChatUsers = async (id: number) => {
-    if(userId){
-      const res = await fetch(`/api/chat/users?id=${id}`);
-      if(res.ok){
-        const { userMap } = await res.json();
-        if(!Object.keys(userMap).includes(userId.toString())){
-          router.push('/error');
-        }else{
-          setUsers(userMap);
-        }
-      }
-    }
-  };
+  }, [users, userId])
 
   const handleSendMessage = async () => {
 

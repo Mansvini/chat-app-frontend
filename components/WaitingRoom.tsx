@@ -24,7 +24,7 @@ const WaitingRoom = () => {
         socket.off('strangerConnected', handleStrangerConnected);
       })
     }
-  }, [waiting]);
+  }, [waiting, router]);
 
 
   const wait = async () => {

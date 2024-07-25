@@ -28,10 +28,22 @@ const ChatList = ({ selectedChat }: { selectedChat: number | null}) => {
     const router = useRouter();
 
     useEffect(() => {
+        const fetchChatSessions = async (userId: number) => {
+            const res = await fetch(`/api/chat/sessions?userId=${userId}`);
+    
+            if(res.ok){
+                const data = await res.json();
+                setChatSessions(data.chatSessions);
+                setNewMessageCounts(data.unreadCounts);
+                data.chatSessions.length && fetchUserNames(data.chatSessions);
+                setLoading(false);
+            }
+        };
+
         if (userId) {
           fetchChatSessions(userId);
         }
-    }, []);
+    }, [userId]);
 
     useEffect(()=>{
 
@@ -66,7 +78,7 @@ const ChatList = ({ selectedChat }: { selectedChat: number | null}) => {
           socket.off('receiveMessage', handleReceiveMessage);
         }
     
-    }, [userNames, selectedChat]);
+    }, [userNames, selectedChat, userId, toast]);
 
     const fetchUserNames = async (sessions: any[]) => {
         const userIds = Array.from(new Set(sessions?.flatMap(session => [session.user1_id, session.user2_id])));
@@ -77,18 +89,6 @@ const ChatList = ({ selectedChat }: { selectedChat: number | null}) => {
             userMap[user.id] = `${user.first_name} ${user.last_name}`;
         });
         setUserNames(userMap);
-    };
-
-    const fetchChatSessions = async (userId: number) => {
-        const res = await fetch(`/api/chat/sessions?userId=${userId}`);
-
-        if(res.ok){
-            const data = await res.json();
-            setChatSessions(data.chatSessions);
-            setNewMessageCounts(data.unreadCounts);
-            data.chatSessions.length && fetchUserNames(data.chatSessions);
-            setLoading(false);
-        }
     };
 
     const onSelectChat = async(id: number) => {

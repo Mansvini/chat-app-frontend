@@ -14,7 +14,7 @@ const withAuth = (WrappedComponent: React.ComponentType, requiresAuth = true) =>
       } else if (!requiresAuth && isAuthenticated) {
         router.push('/');
       }
-    }, []);
+    }, [isAuthenticated, router]);
 
     if (requiresAuth && !isAuthenticated) return null;
     if (!requiresAuth && isAuthenticated) return null;
