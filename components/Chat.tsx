@@ -14,7 +14,7 @@ interface Message {
   id: number | string;
   sender_id: number;
   message: string;
-  created_at: Date;
+  created_at: Date | string;
   chat_session_id: number;
 }
 
@@ -130,7 +130,7 @@ const Chat = ({ chatSessionId }: { chatSessionId: number }) => {
           message: newMessage,
           sender_id: userId,
           chat_session_id: chatSessionId,
-          created_at: new Date(),
+          created_at: new Date().toISOString(),
         }
         setMessages((prevMessages) => [...prevMessages, message]);
         socket.emit('sendMessage', { message, recepientId });
@@ -183,7 +183,7 @@ const Chat = ({ chatSessionId }: { chatSessionId: number }) => {
             </Avatar>
             <div className={styles.messsageContent}>
               <div className={styles.messageText}>{msg.message}</div>
-              <div className={styles.messageTime}>{utcToLocal(msg.created_at)}</div>
+              <div className={styles.messageTime}>{new Date(msg.created_at).toLocaleTimeString()}</div>
             </div>
           </div>
         )) : null}
